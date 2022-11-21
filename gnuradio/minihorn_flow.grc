@@ -73,7 +73,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 93.1e6
+    value: 103.5e6
   states:
     bus_sink: false
     bus_source: false
@@ -97,7 +97,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '"59"'
+    value: '"01"'
   states:
     bus_sink: false
     bus_source: false
@@ -522,7 +522,7 @@ blocks:
     bus_structure: null
     coordinate: [832, 580.0]
     rotation: 180
-    state: disabled
+    state: enabled
 - name: import_0
   id: import
   parameters:
@@ -711,7 +711,7 @@ blocks:
     dc_offset_mode7: '0'
     dc_offset_mode8: '0'
     dc_offset_mode9: '0'
-    freq0: 100e6
+    freq0: freq
     freq1: 100e6
     freq10: 100e6
     freq11: 100e6

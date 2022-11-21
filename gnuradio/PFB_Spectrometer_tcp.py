@@ -29,6 +29,7 @@ import sip
 from gnuradio import blocks
 from gnuradio import fft
 from gnuradio.fft import window
+from gnuradio import fits_sink
 from gnuradio import gr
 import sys
 import signal
@@ -88,9 +89,9 @@ class PFB_Spectrometer_tcp(gr.top_block, Qt.QWidget):
         self.name = name = "BINGO"
         self.n_samples = n_samples = 100
         self.n_integration = n_integration = 1000
-        self.mode = mode = "59"
+        self.mode = mode = "01"
         self.gain = gain = 50
-        self.freq = freq = 93.1e6
+        self.freq = freq = 103.5e6
         self.fit = fit = True
         self.custom_window = custom_window = sinc*np.hamming(4*vec_length)
         self.csv = csv = False
@@ -160,7 +161,7 @@ class PFB_Spectrometer_tcp(gr.top_block, Qt.QWidget):
         )
         self.osmosdr_source_0.set_time_unknown_pps(osmosdr.time_spec_t())
         self.osmosdr_source_0.set_sample_rate(samp_rate)
-        self.osmosdr_source_0.set_center_freq(100e6, 0)
+        self.osmosdr_source_0.set_center_freq(freq, 0)
         self.osmosdr_source_0.set_freq_corr(0, 0)
         self.osmosdr_source_0.set_dc_offset_mode(0, 0)
         self.osmosdr_source_0.set_iq_balance_mode(0, 0)
@@ -170,6 +171,7 @@ class PFB_Spectrometer_tcp(gr.top_block, Qt.QWidget):
         self.osmosdr_source_0.set_bb_gain(20, 0)
         self.osmosdr_source_0.set_antenna('', 0)
         self.osmosdr_source_0.set_bandwidth(0, 0)
+        self.fits_sink_fits_sink_0 = fits_sink.fits_sink( vec_length, samp_rate, freq, prefix, n_samples, mode, csv, fit)
         self.fft_vxx_0 = fft.fft_vcc(vec_length, True, window.blackmanharris(vec_length), True, 1)
         self.blocks_stream_to_vector_0_0_0_0 = blocks.stream_to_vector(gr.sizeof_gr_complex*1, vec_length)
         self.blocks_stream_to_vector_0_0_0 = blocks.stream_to_vector(gr.sizeof_gr_complex*1, vec_length)
@@ -201,6 +203,7 @@ class PFB_Spectrometer_tcp(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_delay_0, 0), (self.blocks_stream_to_vector_0_0, 0))
         self.connect((self.blocks_delay_0_0, 0), (self.blocks_stream_to_vector_0_0_0, 0))
         self.connect((self.blocks_delay_0_0_0, 0), (self.blocks_stream_to_vector_0_0_0_0, 0))
+        self.connect((self.blocks_integrate_xx_0_0_0, 0), (self.fits_sink_fits_sink_0, 0))
         self.connect((self.blocks_integrate_xx_0_0_0, 0), (self.qtgui_vector_sink_f_0, 0))
         self.connect((self.blocks_multiply_const_vxx_0, 0), (self.blocks_add_xx_0, 0))
         self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.blocks_add_xx_0, 1))
@@ -309,6 +312,7 @@ class PFB_Spectrometer_tcp(gr.top_block, Qt.QWidget):
 
     def set_freq(self, freq):
         self.freq = freq
+        self.osmosdr_source_0.set_center_freq(self.freq, 0)
         self.qtgui_sink_x_0.set_frequency_range(self.freq, self.samp_rate)
         self.qtgui_vector_sink_f_0.set_x_axis((self.freq - self.samp_rate/2), (self.samp_rate/self.vec_length))
 
