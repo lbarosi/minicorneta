@@ -73,7 +73,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 103.5e6
+    value: 1420.5e6
   states:
     bus_sink: false
     bus_source: false
@@ -522,7 +522,7 @@ blocks:
     bus_structure: null
     coordinate: [832, 580.0]
     rotation: 180
-    state: enabled
+    state: disabled
 - name: import_0
   id: import
   parameters:
