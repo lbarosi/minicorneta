@@ -73,7 +73,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 1420.5e6
+    value: 103.5e6
   states:
     bus_sink: false
     bus_source: false
@@ -228,7 +228,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1200, 264.0]
+    coordinate: [1200, 256.0]
     rotation: 0
     state: true
 - name: blocks_complex_to_mag_squared_0
@@ -244,7 +244,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1448, 488.0]
+    coordinate: [1456, 488.0]
     rotation: 180
     state: true
 - name: blocks_correctiq_0
@@ -278,7 +278,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [592, 256.0]
+    coordinate: [584, 256.0]
     rotation: 0
     state: true
 - name: blocks_delay_0_0
@@ -297,7 +297,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [592, 320.0]
+    coordinate: [584, 320.0]
     rotation: 0
     state: true
 - name: blocks_delay_0_0_0
@@ -316,7 +316,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [592, 384.0]
+    coordinate: [584, 384.0]
     rotation: 0
     state: true
 - name: blocks_integrate_xx_0_0_0
@@ -352,7 +352,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [928, 196.0]
+    coordinate: [936, 192.0]
     rotation: 0
     state: true
 - name: blocks_multiply_const_vxx_0_0
@@ -370,7 +370,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [928, 260.0]
+    coordinate: [928, 256.0]
     rotation: 0
     state: true
 - name: blocks_multiply_const_vxx_0_0_0
@@ -388,7 +388,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [928, 324.0]
+    coordinate: [928, 320.0]
     rotation: 0
     state: true
 - name: blocks_multiply_const_vxx_0_0_0_0
@@ -406,7 +406,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [928, 388.0]
+    coordinate: [936, 384.0]
     rotation: 0
     state: true
 - name: blocks_stream_to_vector_0
@@ -499,7 +499,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1400, 272.0]
+    coordinate: [1408, 264.0]
     rotation: 0
     state: true
 - name: fits_sink_fits_sink_0
@@ -522,7 +522,7 @@ blocks:
     bus_structure: null
     coordinate: [832, 580.0]
     rotation: 180
-    state: disabled
+    state: enabled
 - name: import_0
   id: import
   parameters:
@@ -533,7 +533,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 148.0]
+    coordinate: [8, 136.0]
     rotation: 0
     state: true
 - name: osmosdr_source_0
@@ -919,7 +919,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [640, 464.0]
+    coordinate: [648, 464.0]
     rotation: 0
     state: true
 - name: qtgui_vector_sink_f_0

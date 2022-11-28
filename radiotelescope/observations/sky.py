@@ -450,7 +450,7 @@ class Sky:
                 objects = self.local_objects
             object_list = []
             for sky_object in objects:
-                pos = (observer - self._eph[sky_object]).at(timevector)
+                pos = observer.at(timevector).observe(self._eph[sky_object])
                 ra, dec, dist = pos.radec()
                 cone = observer.at(timevector).from_altaz(
                     alt_degrees=self.instrument.Alt,
