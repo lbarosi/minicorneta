@@ -625,10 +625,11 @@ class Sky:
                   format(begin, end))
         return ax
 
-    def plot_timeseries(self, df_data, interval="1h", timezone=None):
+    def plot_timeseries(self, df_data, interval="1h"):
         """Plot waterfall and upper panel with celestials."""
         df_sky = self.get_all_beam()
-        df_sky["TIME"] = pd.to_datetime(df_sky.TIME).dt.tz_convert(timezone)
+        #df_sky["TIME"] = pd.to_datetime(df_sky.TIME).dt.tz_convert(timezone)
+        df_sky["TIME"] = pd.to_datetime(df_sky.TIME)
         df_fit = df_data
         #df_fit = df_data.reset_index()
         #df_fit["index"] = df_fit["index"].dt.\
