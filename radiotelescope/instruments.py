@@ -13,7 +13,6 @@ from radiotelescope.backend.instrument import Instrument
 from radiotelescope.backend.controller import LinuxBox
 from radiotelescope.backend.gnuradiobackend import GNURadioBackend
 
-
 # Definindo Instrumento na posiçpão do Uirapuru
 lat = -7.211637 * u.deg
 lon = -35.908138 * u.deg
@@ -45,7 +44,7 @@ RTLSDRGNU = GNURadioBackend(controller=linuxbox,
                                            DEVICE="RTL2838")
 
 # Backend RTLSDRPower
-# RTLSDRpower = radiotelescope.RTLSDRpowerBackend(controller=linuxbox,
+# RTLSDRpower = RTLSDRpowerBackend(controller=linuxbox,
 #                                                 instrument=minihorn,
 #                                                 modes=modes,
 #                                                 name="SDR_POWER")

@@ -151,6 +151,10 @@ class Observations:
         try:
             df = self.backend.load_measurement(filenames=filenames, mode=mode,
                                                extension=extension)
+            # COnvertendo timezone aware
+            df = df.reset_index()
+            df["index"] = df["index"].dt.tz_localize(self.backend.instrument.timezone)
+            df = df.set_index("index")
             self.data = df
         except ValueError:
             print("No data found.")
@@ -219,8 +223,10 @@ class Observations:
                                   duration=duration)
         # limits
         freqs = df.columns.astype("float")
-        begin = df.index[0]
-        end = df.index[-1]
+        # datas sem fuso.
+        datas = df.index
+        begin = datas[0]
+        end = datas[-1]
         mt = mdates.date2num((begin, end))
         hfmt = mdates.DateFormatter('%Y-%m-%d\n%H:%M:%S')
         fmt_minor = mdates.MinuteLocator(interval=15)
