@@ -44,7 +44,8 @@ RADIOSOURCES = ['Cassiopeia A', 'Centaurus A', 'Cygnus A', 'Fornax A',
 TLE_urls = ['https://celestrak.com/NORAD/elements/gps-ops.txt',
             'https://celestrak.com/NORAD/elements/glo-ops.txt',
             'https://celestrak.com/NORAD/elements/galileo.txt',
-            'https://celestrak.com/NORAD/elements/beidou.txt']
+            'https://celestrak.com/NORAD/elements/beidou.txt',
+            'https://celestrak.com/NORAD/elements/gnss.txt']
 # --------------------
 # plate_carre WCS
 # --------------------
