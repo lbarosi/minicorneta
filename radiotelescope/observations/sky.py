@@ -421,37 +421,6 @@ class Sky:
             df = None
         return df
 
-    # def get_local_objects(self, objects=None, CONE=True):
-    #     """Get positions of local objects during observation."""
-    #     # --------------------
-    #     # Generate positions in dataframe.
-    #     # --------------------
-    #     if self.instrument is not None:
-    #         timevector = self.timevector
-    #         fwhm = self.instrument.fwhm
-    #         observer = self._earth + self.instrument.observatory
-    #         if objects is None:
-    #             objects = self.local_objects
-    #         object_list = []
-    #         for sky_object in objects:
-    #             pos = (observer - self._eph[sky_object]).at(timevector)
-    #             ra, dec, dist = pos.radec()
-    #             cone = observer.at(timevector).from_altaz(
-    #                 alt_degrees=self.instrument.Alt,
-    #                 az_degrees=self.instrument.Az).separation_from(pos)
-    #             df = pd.DataFrame(zip(timevector.tai, ra._degrees,
-    #                                   dec.degrees, cone.degrees, dist.km),
-    #                               columns=['TIME', 'RA', 'DEC', 'ANGLE',
-    #                                        'DISTANCE'])
-    #             df['NAME'] = [sky_object.split(" ")[0]] * len(timevector)
-    #             object_list.append(df)
-    #         objects_df = pd.concat(object_list)
-    #         if CONE:
-    #             df = objects_df[objects_df.ANGLE < fwhm/2]
-    #     else:
-    #         print("Instrument not set")
-    #         df = None
-    #     return df
 
     def get_all_beam(self, query_string_nvss="S1400>10000",
                      query_string_psr="S1400>10", cone=True):
@@ -631,8 +600,9 @@ class Sky:
         df_sky = self.get_all_beam()
         df_sky["TIME"] = pd.to_datetime(df_sky.TIME.values,
                                         unit="D", origin="julian")
-        df_sky["TIME"] = df_sky["TIME"].dt.tz_localize(
-            self.instrument.timezone)
+        #df_sky["TIME"] = df_sky["TIME"].dt.tz_localize(
+        #    self.instrument.timezone)
+        df_sky["TIME"] = df_sky["TIME"].dt.tz_localize("UTC").dt.tz_convert(self.instrument.timezone)
         df_fit = df_data
         df_fit = df_data.reset_index()
         df_fit["index"] = df_fit["index"].dt.\
@@ -661,7 +631,7 @@ class Sky:
                            extent=[mt[0], mt[-1], freqs[-1], freqs[0]],
                            cmap=cm.inferno)
         spectrum_ax.set_ylabel("Frequencies (MHz)")
-        spectrum_ax.set_xlabel("Time (UT)")
+        spectrum_ax.set_xlabel("Time (local time)")
         spectrum_ax.minorticks_on()
         spectrum_ax.xaxis.set_major_formatter(hfmt)
         spectrum_ax.xaxis.set_minor_locator(fmt_minor)
