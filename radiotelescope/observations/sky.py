@@ -16,6 +16,7 @@ from astropy.time import Time, TimeDelta
 from astroquery.simbad import Simbad
 from astroquery.vizier import Vizier
 import dask.array as da
+from matplotlib.colorbar import Colorbar
 import matplotlib.cm as cm
 import matplotlib.dates as mdates
 from matplotlib.patches import Circle
@@ -620,14 +621,17 @@ class Sky:
         mt = mdates.date2num((begin, end))
         hfmt = mdates.DateFormatter('%Y-%m-%d\n%H:%M:%S')
         # create grid format.
-        fig = plt.figure(figsize=(16, 8))
-        grid = plt.GridSpec(5, 8, hspace=0.0, wspace=0.1)
-        spectrum_ax = fig.add_subplot(grid[1:, :-1])
-        sky_ax = fig.add_subplot(grid[0, :-1], xticklabels=[],
+        #fig = plt.figure(figsize=(16, 8))
+        fig = plt.figure(figsize=(16, 10))
+        #grid = plt.GridSpec(5, 8, hspace=0.0, wspace=0.1)
+        grid = plt.GridSpec(10, 9, hspace=0.0, wspace=0.1)
+        #spectrum_ax = fig.add_subplot(grid[1:, :-1])
+        spectrum_ax = fig.add_subplot(grid[2:-2, :-1])
+        sky_ax = fig.add_subplot(grid[0:2, :-1], xticklabels=[],
                                  sharex=spectrum_ax)
-        ver_fig = fig.add_subplot(grid[1:, -1], sharey=spectrum_ax)
+        ver_fig = fig.add_subplot(grid[2:-2, -1], sharey=spectrum_ax)
         # waterfall.
-        spectrum_ax.imshow(df_fit.T, aspect='auto',
+        main = spectrum_ax.imshow(df_fit.T, aspect='auto',
                            extent=[mt[0], mt[-1], freqs[-1], freqs[0]],
                            cmap=cm.inferno)
         spectrum_ax.set_ylabel("Frequencies (MHz)")
@@ -636,6 +640,10 @@ class Sky:
         spectrum_ax.xaxis.set_major_formatter(hfmt)
         spectrum_ax.xaxis.set_minor_locator(fmt_minor)
         spectrum_ax.xaxis.set_tick_params(which='minor', bottom=True)
+        # colorbar
+        cbax = fig.add_subplot(grid[9, :-1])
+        Colorbar(ax=cbax, mappable=main, orientation="horizontal",
+                 ticklocation="bottom")
         # SKY
         if not df_sky.empty:
             mask = (df_sky["TIME"] > begin) & (df_sky["TIME"] < end)
