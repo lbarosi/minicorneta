@@ -235,9 +235,7 @@ class Backend(ABC):
                 hdu_data.append(data)
                 freqs = hdul[1].data[0][1]
                 times = hdul[1].data[0][0]
-                #delta = ((pd.to_datetime(hdul[0].header['DATE-END'] + "T" + hdul[0].header['TIME-END']) - stamp)/times.size).total_seconds()
-                delta = n_integration * freqs.size / ((freqs[-1] - freqs[0])*1e6)
-                vector = stamp + delta*pd.to_timedelta(times, unit="s")
+                vector = stamp + pd.to_timedelta(times, unit="s")
                 timevector.append(vector)
         if len(filenames) > 1:
             # União de todos os índices temporais.
