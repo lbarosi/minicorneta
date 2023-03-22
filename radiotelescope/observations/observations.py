@@ -271,8 +271,9 @@ class Observations:
         return fig
 
     def make_sky(self, interval=1 * u.min):
-        t_start = self.data.index[0]
-        t_end = self.data.index[-1]
+        fuso = self.backend.instrument.timezone
+        t_start = self.data.index[0].tz_localize(fuso).tz_convert("UTC")
+        t_end = self.data.index[-1].tz_localize(fuso).tz_convert("UTC")
         duration = (t_end - t_start).total_seconds() * u.s
         instrument = self.backend.instrument.set_observatory()
         self.sky = sky.Sky(instrument=instrument,

@@ -511,7 +511,7 @@ class Sky:
             return None
         return self
 
-    def make_pointings_df(self, interval=None, utc=False):
+    def make_pointings_df(self, interval=None, utc=True):
         """Construct dataframe with times and pointings in human readable format."""
         ra = self.pointings.ra.degree
         dec = self.pointings.dec.degree
@@ -527,7 +527,7 @@ class Sky:
             df = df.asfreq(freq=interval, method='bfill')
         return df
 
-    def plot_pointings(self, timestamps=True, circles=True, utc=False,
+    def plot_pointings(self, timestamps=True, circles=True, utc=True,
                        interval="1h", ra_lim=None, dec_lim=None,
                        h_offset=7, v_offset=-10, legend_offset=-.1,
                        galactic=True, wcs="CAR"):
@@ -605,8 +605,8 @@ class Sky:
         #df_sky["TIME"] = df_sky["TIME"].dt.tz_localize(
         #    self.instrument.timezone)
         df_sky["TIME"] = df_sky["TIME"].dt.tz_localize("UTC").dt.tz_convert(self.instrument.timezone)
-        df_fit = df_data
-        df_fit = df_data.reset_index()
+        df_fit = df_data.copy()
+        df_fit = df_fit.reset_index()
         df_fit["index"] = df_fit["index"].dt.\
             tz_localize(self.instrument.timezone)
         df_fit = df_fit.set_index("index")
