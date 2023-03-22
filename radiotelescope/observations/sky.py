@@ -604,7 +604,8 @@ class Sky:
                                         unit="D", origin="julian")
         #df_sky["TIME"] = df_sky["TIME"].dt.tz_localize(
         #    self.instrument.timezone)
-        df_sky["TIME"] = df_sky["TIME"].dt.tz_localize("UTC").dt.tz_convert(self.instrument.timezone)
+        #df_sky["TIME"] = #df_sky["TIME"].dt.tz_localize("UTC").dt.tz_convert(self.instrument.timezone)
+        df_sky["TIME"].dt.tz_localize("UTC")
         df_fit = df_data.copy()
         df_fit = df_fit.reset_index()
         df_fit["index"] = df_fit["index"].dt.\
