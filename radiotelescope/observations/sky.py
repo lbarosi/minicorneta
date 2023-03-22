@@ -602,10 +602,7 @@ class Sky:
         df_sky = self.get_all_beam()
         df_sky["TIME"] = pd.to_datetime(df_sky.TIME.values,
                                         unit="D", origin="julian")
-        #df_sky["TIME"] = df_sky["TIME"].dt.tz_localize(
-        #    self.instrument.timezone)
-        #df_sky["TIME"] = #df_sky["TIME"].dt.tz_localize("UTC").dt.tz_convert(self.instrument.timezone)
-        df_sky["TIME"].dt.tz_localize("UTC")
+        df_sky["TIME"] = df_sky["TIME"].dt.tz_localize("UTC").dt.tz_convert(self.instrument.timezone)
         df_fit = df_data.copy()
         df_fit = df_fit.reset_index()
         df_fit["index"] = df_fit["index"].dt.\
