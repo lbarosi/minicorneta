@@ -195,7 +195,9 @@ class Backend(ABC):
         # Índice do dataframe é o tempo.
         # É registrada informação de horário UTC.
         try:
-            df['timestamps'] = pd.to_datetime(df['timestamps'], format="%Y%m%dT%H%M%S", utc=True)
+            #df['timestamps'] = pd.to_datetime(df['timestamps'], format="%Y%m%dT%H%M%S", utc=True)
+            df['timestamps'] = pd.to_datetime(df['timestamps'], format="%Y%m%dT%H%M%S")
+            df["timestamps"] = df["timestamps"].dt.tz_localize(self.instrument.timezone)
             # Ordenamento temporal é fundamental para efetuar as filtragens.
             self.filenames = df.set_index('timestamps').sort_index()
         except (TypeError, ValueError):
