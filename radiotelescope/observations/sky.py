@@ -618,7 +618,7 @@ class Sky:
         fmt_minor = mdates.MinuteLocator(interval=15)
         # Set up the axes with gridspec
         mt = mdates.date2num((begin, end))
-        hfmt = mdates.DateFormatter('%Y-%m-%d\n%H:%M:%S')
+        hfmt = mdates.DateFormatter('%Y-%m-%d\n%H:%M:%S', tz=self.instrument.timezone)
         # create grid format.
         #fig = plt.figure(figsize=(16, 8))
         fig = plt.figure(figsize=(16, 10))
