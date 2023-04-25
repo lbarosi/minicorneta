@@ -104,7 +104,7 @@ class Observations:
         return self
 
     def filter_data(self, data, begin=None, freqs=None, duration=None,
-                    sampling=None):
+                    sampling=None, mode="median"):
         """Filtra o dataframe com os parâmetros chamados.
 
         Args:
@@ -139,7 +139,12 @@ class Observations:
                                 (df.columns < freqmax)).dropna()
         result = df.loc[begin:end][mask]
         if sampling is not None:
-            result = result.resample(sampling).mean()
+            delta_t = (df.index[-1] - df.index[0]).total_seconds()/df.index.size
+            window = sampling.to(u.s) // delta_t
+            if mode=="median":
+                result = result.rolling(window, min_periods=1, center=True).median()
+            if mode=="mean":
+                result = result.rolling(window, min_periods=1, center=True).mean()
         return result
 
     def load_observation(self, mode="59", extension="fit"):
