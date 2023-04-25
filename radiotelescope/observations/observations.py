@@ -140,7 +140,7 @@ class Observations:
         result = df.loc[begin:end][mask]
         if sampling is not None:
             delta_t = (df.index[-1] - df.index[0]).total_seconds()/df.index.size
-            window = sampling.to(u.s) // delta_t
+            window = int(sampling.to(u.s).value // delta_t)
             if mode=="median":
                 result = result.rolling(window, min_periods=1, center=True).median()
             if mode=="mean":
